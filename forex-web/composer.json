@@ -1,0 +1,14 @@
+{
+    "name": "muteor/forex-web",
+    "require": {
+        "slim/slim": "^3.5",
+        "guzzlehttp/guzzle": "^6.2",
+        "slim/php-view": "^2.1"
+    },
+    "authors": [
+        {
+            "name": "muteor",
+            "email": "thepope@thepopeisdead.com"
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "muteor/forex-exchange-rate",
+    "require": {
+        "slim/slim": "^3.5",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "authors": [
+        {
+            "name": "muteor",
+            "email": "thepope@thepopeisdead.com"
+        }
+    ]
+}

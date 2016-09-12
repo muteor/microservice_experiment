@@ -1,0 +1,35 @@
+namers:
+- kind: io.l5d.consul
+  experimental: true
+  host: 172.17.0.1
+  port: 8500
+  includeTag: false
+  setHost: false
+
+routers:
+
+# Use this router for linkerd-to-service
+# This server should be registered in service discovery so that incoming traffic
+# is served here.
+- protocol: http
+  label: incoming
+  servers:
+  - port: 4140
+    ip: 0.0.0.0
+  # Route all incoming traffic to the application service
+  # (assumed to be running on port 80)
+  baseDtab: |
+    /local => /$/inet/127.1/80;
+    /http/1.1/*/* => /local ;
+
+# Use this router for service-to-linkerd
+# The matching service instance should send all outgoing traffic to port 4141
+# so that linkerd may route it appropriately.
+- protocol: http
+  label: outgoing
+  servers:
+  - port: 4141
+    ip: 0.0.0.0
+  # Route outgoing traffic based on the Host header
+  baseDtab: |
+    /http/1.1/* => /#/io.l5d.consul/dc1;

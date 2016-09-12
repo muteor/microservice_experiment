@@ -1,0 +1,40 @@
+forex-web:
+  labels:
+    io.rancher.container.pull_image: never
+  tty: true
+  image: muteor/forex-web
+  stdin_open: true
+  links:
+  - forex-currency-converter:forex-currency-converter
+  ports:
+  - 9990 # Admin
+forex-currency-converter:
+  labels:
+    io.rancher.container.pull_image: never
+  tty: true
+  image: muteor/forex-currency-converter
+  stdin_open: true
+  links:
+    - forex-exchange-rate:forex-exchange-rate
+  ports:
+  - 4140 # Incoming
+  - 4141 # Outgoing
+  - 9990 # Admin
+forex-exchange-rate:
+  labels:
+    io.rancher.container.pull_image: never
+  tty: true
+  image: muteor/forex-exchange-rate
+  stdin_open: true
+  ports:
+  - 4140 # Incoming
+  - 4141 # Outgoing
+  - 9990 # Admin
+forexlb:
+  ports:
+  - 80:80
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - forex-web:forex-web
+  stdin_open: true

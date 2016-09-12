@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Forex Currency Converter</title>
+
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.css">
+    <style type="text/css">
+        label {
+            display: block;
+        }
+
+        input, select {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>FX Converter</h1>
+            <form action="/" method="get">
+                <label for="date">Date</label>
+                <input type="text" name="date" id="date" placeholder="DD-MM-YYYY"
+                       value="<?= escape_html($data['date']) ?>" class="form-control"/>
+
+                <label for="amount">Amount</label>
+                <input type="text" name="amount" id="amount" placeholder="E.g. 23.45"
+                       value="<?= escape_html($data['amount']) ?>" class="form-control"/>
+
+                <label for="from">From</label>
+                <select name="from" id="from" class="form-control">
+                    <?php foreach ($data['iso_codes'] as $code): ?>
+                        <option value="<?= escape_html($code) ?>"><?= escape_html($code) ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <label for="to">To</label>
+                <select name="to" id="to" class="form-control">
+                    <?php foreach ($data['iso_codes'] as $code): ?>
+                        <option value="<?= escape_html($code) ?>"><?= escape_html($code) ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <div>
+                    <input type="submit" name="convert" value="Convert" class="btn btn-default"/>
+                </div>
+            </form>
+        </div>
+        <?php if (!empty($data['result'])): ?>
+            <div class="col-md-4">
+                <h2>Result</h2>
+                <p>
+                    <strong><?= escape_html($data['result']['amount']) ?></strong>
+                    is
+                    <strong><?= escape_html($data['result']['converted']) ?></strong>
+                    on
+                    <strong><?= escape_html($data['result']['date']) ?></strong>
+                </p>
+                <p>
+                    1 <?= escape_html($data['result']['from_iso_code']) ?>
+                    = <?= escape_html($data['result']['rate']) ?> <?= escape_html($data['result']['to_iso_code']) ?>
+                </p>
+            </div>
+        <?php endif ?>
+        <?php if (!empty($data['result']['error'])): ?>
+            <div class="col-md-4">
+                <h2>Error</h2>
+                <p>
+                    <?= escape_html($data['result']['error']) ?>
+                </p>
+            </div>
+        <?php endif ?>
+    </div>
+    <?php if ($data['result']['request']): ?>
+        <br>
+        Super secure :P
+        <pre>
+Request: <?= var_export($data['result']['request'], true); ?>
+
+            Server: <?= var_export($data['result']['server'], true); ?>
+    </pre>
+    <?php endif ?>
+</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+consul-server:
+  scale: 1
+consul-registrator:
+  scale: 1

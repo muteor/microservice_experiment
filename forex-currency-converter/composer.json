@@ -1,0 +1,14 @@
+{
+    "name": "muteor/forex-currency-converter",
+    "require": {
+        "slim/slim": "^3.5",
+        "guzzlehttp/guzzle": "^6.2",
+        "mathiasverraes/money": "^3.0@beta"
+    },
+    "authors": [
+        {
+            "name": "muteor",
+            "email": "thepope@thepopeisdead.com"
+        }
+    ]
+}

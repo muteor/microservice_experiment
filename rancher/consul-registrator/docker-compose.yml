@@ -1,0 +1,18 @@
+consul-server:
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  image: gliderlabs/consul-server
+  stdin_open: true
+  net: "host"
+  command: ["-bootstrap", "-advertise=172.17.0.1"]
+consul-registrator:
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  image: gliderlabs/registrator
+  stdin_open: true
+  net: "host"
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
+  command: ["consul://localhost:8500"]
