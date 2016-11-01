@@ -6,6 +6,7 @@ use Money\Parser\IntlMoneyParser;
 use Money\Formatter\IntlMoneyFormatter;
 use Money\Currency;
 use Money\CurrencyPair;
+use GuzzleHttp\Exception\ClientException;
 
 require '../vendor/autoload.php';
 
@@ -74,8 +75,23 @@ $app->get('/convert', function (Request $request, Response $response) {
         ], JSON_PRETTY_PRINT));
         return $response;
 
+    } catch(ClientException $e) {
+        return $response
+            ->withStatus(400)
+            ->write(json_encode([
+                'host' => $_SERVER,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'clientError' => json_decode($e->getResponse()->getBody(), true)
+            ]));
     } catch(Exception $e) {
-        return $response->write('Fail currency converter' . $e->getMessage());
+        return $response
+            ->withStatus(400)
+            ->write(json_encode([
+                'host' => $_SERVER,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+        ]));
     }
 });
 $app->run();

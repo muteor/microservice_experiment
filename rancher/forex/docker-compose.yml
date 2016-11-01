@@ -8,6 +8,7 @@ forex-web:
   - forex-currency-converter:forex-currency-converter
   ports:
   - 9990 # Admin
+  - 4141 # Outgoing
 forex-currency-converter:
   labels:
     io.rancher.container.pull_image: never

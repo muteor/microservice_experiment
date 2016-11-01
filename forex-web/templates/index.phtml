@@ -24,7 +24,7 @@
             <h1>FX Converter</h1>
             <form action="/" method="get">
                 <label for="date">Date</label>
-                <input type="text" name="date" id="date" placeholder="DD-MM-YYYY"
+                <input type=date name="date" id="date"
                        value="<?= escape_html($data['date']) ?>" class="form-control"/>
 
                 <label for="amount">Amount</label>
@@ -34,14 +34,14 @@
                 <label for="from">From</label>
                 <select name="from" id="from" class="form-control">
                     <?php foreach ($data['iso_codes'] as $code): ?>
-                        <option value="<?= escape_html($code) ?>"><?= escape_html($code) ?></option>
+                        <option value="<?= escape_html($code) ?>" <?php if ($data['from'] == $code) { echo 'selected'; }?>><?= escape_html($code) ?></option>
                     <?php endforeach; ?>
                 </select>
 
                 <label for="to">To</label>
                 <select name="to" id="to" class="form-control">
                     <?php foreach ($data['iso_codes'] as $code): ?>
-                        <option value="<?= escape_html($code) ?>"><?= escape_html($code) ?></option>
+                        <option value="<?= escape_html($code) ?>" <?php if ($data['to'] == $code) { echo 'selected'; }?>><?= escape_html($code) ?></option>
                     <?php endforeach; ?>
                 </select>
 
@@ -75,15 +75,6 @@
             </div>
         <?php endif ?>
     </div>
-    <?php if ($data['result']['request']): ?>
-        <br>
-        Super secure :P
-        <pre>
-Request: <?= var_export($data['result']['request'], true); ?>
-
-            Server: <?= var_export($data['result']['server'], true); ?>
-    </pre>
-    <?php endif ?>
 </div>
 </body>
 </html>

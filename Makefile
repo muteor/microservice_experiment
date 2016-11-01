@@ -6,4 +6,9 @@ services:
 	docker build -t muteor/forex-currency-converter:latest . && \
 	cd ../ && \
 	cd forex-exchange-rate && \
-	docker build -t muteor/forex-exchange-rate:latest .
+	docker build -t muteor/forex-exchange-rate:latest . && \
+	cd ../
+
+refresh: services
+	cd rancher/forex && \
+	rancher-compose up -d --force-upgrade --confirm-upgrade

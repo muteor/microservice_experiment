@@ -1,0 +1,19 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Forex Currency Converter - Error</title>
+
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.css">
+</head>
+
+<body>
+<h1>Error</h1>
+<p><?= $data['error'] ?></p>
+<pre><?= $data['trace'] ?></pre>
+<?php if (!empty($data['response'])) { ?>
+    <pre><?= var_export($data['response'], true) ?></pre>
+<?php } ?>
+</body>
+</html>

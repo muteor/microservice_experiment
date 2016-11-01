@@ -1,6 +1,7 @@
 <?php
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use GuzzleHttp\Exception\ClientException;
 
 require '../vendor/autoload.php';
 
@@ -37,16 +38,27 @@ $app->get('/', function (Request $request, Response $response) {
                     'Accept' => 'application/json',
                 ],
             ]);
-            $get = http_build_query($request->getQueryParams());
-            $res = $client->request('GET', '/convert?' . $get, [
+            $query = http_build_query($request->getQueryParams());
+            $res = $client->request('GET', '/convert?' . $query, [
                 'headers' => [
                     'Host' => 'forex-currency-converter-4140' // routes linkerd to correct host
                 ]
             ]);
             $result = json_decode($res->getBody(), true);
-            
+
+        } catch(ClientException $e) {
+            $response = $this->view->render($response, "error.phtml", [
+                    'response' => json_decode($e->getResponse()->getBody(), true),
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString()
+            ]);
+            return $response;
         } catch(Exception $e) {
-            return $response->write('Fail Web ' . $e->getMessage());
+            $response = $this->view->render($response, "error.phtml", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return $response;
         }
     }
 
