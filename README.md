@@ -22,7 +22,9 @@ They depend on my base images https://hub.docker.com/u/muteor/
 Then you need Rancher and its cli tools and can do:
 
 `cd rancher/consul-registrator && rancher-compose up -d`
+
 `cd rancher/forex && rancher-compose up -d`
+
 `cd rancher/mertics && rancher-compose up -d`
 
 ## Design
