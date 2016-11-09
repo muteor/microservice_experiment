@@ -8,6 +8,9 @@ services:
 	cd forex-exchange-rate && \
 	docker build -t muteor/forex-exchange-rate:latest . && \
 	cd ../
+	cd linkerd-viz && \
+	docker build -t muteor/linkerd-viz:latest . && \
+	cd ../
 
 refresh: services
 	cd rancher/forex && \

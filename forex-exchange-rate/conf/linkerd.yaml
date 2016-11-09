@@ -12,7 +12,7 @@ routers:
 # This server should be registered in service discovery so that incoming traffic
 # is served here.
 - protocol: http
-  label: incoming
+  label: incoming-forex-exchange-rate
   servers:
   - port: 4140
     ip: 0.0.0.0

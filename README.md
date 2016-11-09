@@ -7,6 +7,10 @@ for me to try things out.
 Hopefully as I get time I will add more features or experiment with
 other tools.
 
+## Updates
+
+* 10th November 2016 - Added Linkerd-viz to aggregate linkerd instance metrics
+
 ## Building/Running
 
 You can build the services using:
@@ -17,8 +21,9 @@ They depend on my base images https://hub.docker.com/u/muteor/
 
 Then you need Rancher and its cli tools and can do:
 
-`cd rancher/consul-registrator && rancher-compose up`
-`cd rancher/forex && rancher-compose up`
+`cd rancher/consul-registrator && rancher-compose up -d`
+`cd rancher/forex && rancher-compose up -d`
+`cd rancher/mertics && rancher-compose up -d`
 
 ## Design
 
@@ -137,11 +142,19 @@ exchange rate service.
 * Forex Exchange Rate - This provides exchange rate data, based on the ECB
 90 day data.
 
+## Metrics
+
+### Linkerd-viz
+
+The official linkerd-viz is not used, but the same setup using Prometheus
+and Grafana is, this aggregates data from linkerd instances into a single
+set of dashboards. See [](linkerd-viz/README.md) for details.
+
 ## TODO
 
 * Logging
   * Aggregate container logs, debugging be hard currently
-  * Aggregate linkerd logs
+  * ~~Aggregate linkerd logs~~
 * Development
   * Make it easier to run service without having to docker build
 * Tools

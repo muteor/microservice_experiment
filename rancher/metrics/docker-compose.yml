@@ -1,0 +1,9 @@
+linkerd-viz:
+  labels:
+    io.rancher.container.pull_image: never
+  ports:
+  - 3000:3000/tcp
+  - 9090:9090/tcp
+  tty: true
+  image: muteor/linkerd-viz
+  stdin_open: true
